@@ -140,7 +140,7 @@ namespace Banchi
         }
         private void btn_SalvataggioCondivisi_Click(object sender, RoutedEventArgs e)
         {
-            BusinessLayer.ScriviTutteLeAule(listaAuleModello);
+            BusinessLayer.ScriviAulaEClasse( (Aula)cmbModelliAule.SelectedItem,(Classe)cmbModelliClasse.SelectedItem ); 
         }
         private void cmbModelliClasse_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

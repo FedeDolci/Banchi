@@ -1,4 +1,5 @@
 ﻿using Banchi.Classi;
+using Org.BouncyCastle.Tls.Crypto.Impl;
 using System.IO;
 using System.Windows.Controls;
 
@@ -23,6 +24,7 @@ namespace Banchi
         public static string FileStudenti;
         public static string FileBanchi;
         public static string FileComputer;
+        public static string FileSalva;
 
         public static void Inizializzazioni()
         {
@@ -40,6 +42,7 @@ namespace Banchi
             FileStudenti = Path.Combine(PathDatiUtente, "Studenti.tsv");
             FileBanchi = Path.Combine(PathDatiUtente, "Banchi.tsv");
             FileComputer = Path.Combine(PathDatiUtente, "Computer.tsv");
+            
 
             CreaFileSeNonEsiste(FileAule);
             CreaFileSeNonEsiste(FileClassi);
@@ -256,6 +259,25 @@ namespace Banchi
             }
             return listaBanchi;
         }
+        public static void ScriviAulaEClasse(Aula aula,Classe classe) {
+            string FileSalvaAuleEClasse = Path.Combine(PathDatiUtente, "AC_"+aula.NomeAula+"_"+classe.CodiceClasse + ".tsv");
+            string[] arraySupporto = new string[aula.Banchi.Count+3];
+            arraySupporto[0] = "NomeAula\tBase\tAltezza\tDirezioneNord";
+            arraySupporto[1] = "vuoto\tCodiceBanco\tIsCattedra\tBaseInCentimetri\tAltezzaInCentimetri\tPosizioneX\tPosizioneY\tStudente\tComputer";
+            arraySupporto[2] = aula.NomeAula + "\t" + aula.BaseInCentimetri + "\t" + aula.AltezzaInCentimetri + "\t" + aula.DirezioneNord;
+
+            int i = 3;
+            foreach(Banco b in aula.Banchi) {
+                arraySupporto[i] = "\t" + b.CodiceBanco + "\t" +b.IsCattedra + "\t" 
+                + b.BaseInCentimetri + "\t" + b.AltezzaInCentimetri 
+                + "\t" + b.PosizioneXInCentimetri + "\t" + b.PosizioneYInCentimetri 
+                + "\t" + b.Studente + "\t" + b.Computer;
+                i++;
+            }
+            File.WriteAllLines(FileSalvaAuleEClasse, arraySupporto);
+
+        }
+        
         internal static List<Aula> LeggiTutteLeAuleUtente()
         {
             return null;

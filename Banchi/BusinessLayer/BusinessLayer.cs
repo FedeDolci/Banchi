@@ -106,5 +106,10 @@ namespace Banchi
         {
             return DataLayer.LeggiBanchiDellAula(aula);
         }
+
+        internal static void ScriviAulaEClasse(Aula aula, Classe classe)
+        {
+           DataLayer.ScriviAulaEClasse(aula, classe);
+        }
     }
 }
